@@ -45,7 +45,7 @@ chmod +x install_pop_pc.sh
 ./install_pop_pc.sh
 ```
 
-2. Follow the prompts (input the details its asks for in the terminal):
+2. Follow the prompts (input the details it asks for in the terminal):
 
 
 PoP Name
