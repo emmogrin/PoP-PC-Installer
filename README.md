@@ -76,5 +76,5 @@ Twitter: @admirkhen
 
 ---
 
-Need help? DM me on Twitter!
+Need help? DM me on Twitter! @admirkhen 
 
