@@ -62,7 +62,7 @@ Telegram username (with @)
 
 Solana wallet address
 
-
+---
 3. The script will:
 
 
