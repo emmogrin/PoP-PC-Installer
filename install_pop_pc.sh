@@ -1,40 +1,25 @@
 #!/bin/bash
 
-# Bold + bright cyan color
+# Styled banner
 BOLD='\033[1m'
 CYAN='\033[96m'
 RESET='\033[0m'
-
-echo ""
-echo -e "${BOLD}${CYAN}███████╗ █████╗ ██╗███╗   ██╗████████╗    ██╗  ██╗██╗  ██╗███████╗███╗   ██╗"
-echo "██╔════╝██╔══██╗██║████╗  ██║╚══██╔══╝    ██║ ██╔╝╚██╗██╔╝██╔════╝████╗  ██║"
-echo "███████╗███████║██║██╔██╗ ██║   ██║       █████╔╝  ╚███╔╝ █████╗  ██╔██╗ ██║"
-echo "╚════██║██╔══██║██║██║╚██╗██║   ██║       ██╔═██╗  ██╔██╗ ██╔══╝  ██║╚██╗██║"
-echo "███████║██║  ██║██║██║ ╚████║   ██║       ██║  ██╗██╔╝ ██╗███████╗██║ ╚████║"
-echo "╚══════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝   ╚═╝       ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝"
-echo "                          SAINT KHEN || @admirkhen${RESET}"
-echo ""
+echo -e "\n${BOLD}${CYAN}Launching SAINT KHEN PoP Node Setup via Docker...${RESET}\n"
 sleep 1
 
-# Ask user for setup info
+# User inputs
 read -p "Enter PoP Name (e.g. khen1): " POP_NAME
 read -p "Enter Location (e.g. china): " POP_LOCATION
 read -p "Enter Invite Code: " INVITE_CODE
 read -p "Enter Email: " EMAIL
 read -p "Enter Discord Username (e.g. jijinwang): " DISCORD
 read -p "Enter Telegram Username (with @): " TELEGRAM
-read -p "Enter Solana Wallet Address (for rewards): " SOLANA_PUBKEY
+read -p "Enter Solana Wallet Address: " SOLANA_PUBKEY
 
-# Create working directory
-mkdir -p ~/popcache
-cd ~/popcache || exit 1
+# Create project folder
+mkdir -p ~/popnode-docker && cd ~/popnode-docker
 
-# Download and extract PoP binary
-wget -O pop-x86_64.tar.gz https://download.pipe.network/static/pop-v0.3.0-linux-x64.tar.gz
-tar -xzf pop-x86_64.tar.gz
-chmod +x ./pop
-
-# Create full config.json
+# Write config.json
 cat > config.json <<EOF
 {
   "pop_name": "$POP_NAME",
@@ -69,11 +54,36 @@ cat > config.json <<EOF
 }
 EOF
 
-# Start node in background and log output
-echo ""
-echo "Starting PoP node..."
-nohup ./pop --config ./config.json > ~/popcache/pop.log 2>&1 &
+# Write Dockerfile
+cat > Dockerfile <<EOF
+FROM ubuntu:24.04
+RUN apt update && apt install -y wget tar
+WORKDIR /app
+RUN wget -O pop-x86_64.tar.gz https://download.pipe.network/static/pop-v0.3.0-linux-x64.tar.gz \\
+ && tar -xzf pop-x86_64.tar.gz \\
+ && chmod +x ./pop
+COPY config.json ./config.json
+CMD ["./pop", "--config", "./config.json"]
+EOF
 
-sleep 2
-echo "✅ PoP Node started in background."
-echo "Logs: tail -f ~/popcache/pop.log"
+# Write docker-compose.yml
+cat > docker-compose.yml <<EOF
+version: "3.9"
+services:
+  popnode:
+    build: .
+    container_name: popnode
+    volumes:
+      - ./cache:/app/cache
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    restart: unless-stopped
+EOF
+
+# Build and run the container
+docker-compose up -d --build
+
+# Show logs
+echo -e "\n${BOLD}✅ PoP Node Docker container running. Logs:${RESET}\n"
+docker logs -f popnode
