@@ -1,147 +1,80 @@
-PoP PC Installer
+PoP Node Installer for PC (Docker-based)
 
-Easy one-script installer for Pipe Network PoP Node on Linux PC (x86_64)
+This setup script installs and runs the PoP Node using Docker on any Ubuntu-based PC.
 
-
----
-
-Overview
-
-This script automates the download, configuration, and setup of the Pipe Network PoP cache node on a Linux PC. It:
-
-Downloads the latest PoP binary (x86_64)
-
-Creates a personalized config.json with your info
-
-Sets up the node as a systemd service for automatic start and restart after reboot
-
-Redirects logs to ~/popcache/pop.log
-
-Shows live logs on first run
-
-
-
----
-
-Requirements
-
-Linux PC (x86_64 architecture)
-
-wget, tar, systemctl, and sudo installed and configured
-
-User must have sudo privileges
-
-
-
----
-
-Usage
-
-1. Download and run the installer script:
-
+Quick Start
 ```
 curl -O https://raw.githubusercontent.com/emmogrin/PoP-PC-Installer/main/install_pop_pc.sh
 chmod +x install_pop_pc.sh
 ./install_pop_pc.sh
 ```
+What It Does
 
-2. Follow the prompts (input the details it asks for in the terminal):
+Installs required packages (Docker, libssl-dev, etc.)
 
+Sets system optimizations
 
-PoP Name
+Downloads and extracts PoP binary
 
-Location
+Prompts user to input configuration
 
-Invite Code
+Builds and runs Docker container for PoP node
 
-Email
-
-Discord username
-
-Telegram username (with @)
-
-Solana wallet address
-
----
-3. The script will:
+Displays real-time logs on completion
 
 
-Download and install the PoP node
+Auto-Start on Reboot
 
-Configure it with your details
+The Docker container is configured with:
 
-Create and enable a systemd service for automatic node startup
+--restart unless-stopped
 
-Start the node and show live logs
+This ensures the PoP node automatically restarts after a reboot if Docker is running.
 
+Manual Commands
 
+If needed, you can manually control the PoP node with:
 
----
-
-Managing the Node
-
-To check logs anytime (after reboot or during use):
-
+# Start the PoP node container manually after reboot
 ```
-tail -f ~/popcache/pop.log
+sudo docker start popnode
 ```
-To manually start the node service:
-
+# View logs
 ```
-sudo systemctl start popnode
+sudo docker logs -f popnode
 ```
-To stop the node service:
-
+# Check if Docker is running
 ```
-sudo systemctl stop popnode
+systemctl status docker
 ```
-To check the service status:
-
+# If Docker is not active:
 ```
-sudo systemctl status popnode
+sudo systemctl start docker
 ```
-To disable auto-start on boot:
+Health Checks
 
+To confirm your node is running properly:
 ```
-sudo systemctl disable popnode
+curl http://<your-vps-ip>/health
+curl -k https://<your-vps-ip>/health | jq
 ```
+# Node state:
+```
+curl -k https://<your-vps-ip>/state | jq
+```
+# Node metrics:
+```
+curl -k https://<your-vps-ip>/metrics | jq
+```
+Branding
 
----
+Brought to you by:
 
-📝 Notes:
-
-Make sure ports 8443 (HTTPS) and 8080 (HTTP) are free or handled properly.
-
-If ports are busy, the node will attempt to bind alternative ports.
-
-Logs help you troubleshoot connectivity and runtime issues.
-
+SAINT KHEN
+Twitter: @admirkhen
 
 
 ---
 
-Contributing
+Need help? DM me on Twitter!
 
-Feel free to open issues or PRs to improve the installer script or documentation.
-
-
----
-
-License
-
-MIT License
-
-
----
-
-Credits
-
-Developed by Saint Khen (GitHub: emmogrin)
-
-Twitter: @admirkhen (known as Saint Khen on Twitter)
-
-Inspired by Pipe Network docs and community
-
-Thanks to Termux & Linux communities
-
-ASCII art by Saint Khen❣️❣️❣️
