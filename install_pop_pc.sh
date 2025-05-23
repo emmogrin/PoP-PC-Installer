@@ -1,12 +1,20 @@
 #!/bin/bash
 
-# Styled banner
+# Bold + bright cyan color
 BOLD='\033[1m'
 CYAN='\033[96m'
 RESET='\033[0m'
-echo -e "\n${BOLD}${CYAN}Launching SAINT KHEN PoP Node Setup via Docker...${RESET}\n"
-sleep 1
 
+echo ""
+echo -e "${BOLD}${CYAN}███████╗ █████╗ ██╗███╗   ██╗████████╗    ██╗  ██╗██╗  ██╗███████╗███╗   ██╗"
+echo "██╔════╝██╔══██╗██║████╗  ██║╚══██╔══╝    ██║ ██╔╝╚██╗██╔╝██╔════╝████╗  ██║"
+echo "███████╗███████║██║██╔██╗ ██║   ██║       █████╔╝  ╚███╔╝ █████╗  ██╔██╗ ██║"
+echo "╚════██║██╔══██║██║██║╚██╗██║   ██║       ██╔═██╗  ██╔██╗ ██╔══╝  ██║╚██╗██║"
+echo "███████║██║  ██║██║██║ ╚████║   ██║       ██║  ██╗██╔╝ ██╗███████╗██║ ╚████║"
+echo "╚══════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝   ╚═╝       ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝"
+echo "                          SAINT KHEN || @admirkhen${RESET}"
+echo ""
+sleep 1
 # User inputs
 read -p "Enter PoP Name (e.g. khen1): " POP_NAME
 read -p "Enter Location (e.g. china): " POP_LOCATION
