@@ -69,31 +69,11 @@ cat > config.json <<EOF
 }
 EOF
 
-# Create systemd service
-SERVICE_FILE="/etc/systemd/system/popnode.service"
-sudo bash -c "cat > $SERVICE_FILE" <<EOF
-[Unit]
-Description=Pipe Network PoP Node
-After=network.target
-
-[Service]
-ExecStart=/home/$USER/popcache/pop --config /home/$USER/popcache/config.json
-WorkingDirectory=/home/$USER/popcache
-Restart=always
-StandardOutput=append:/home/$USER/popcache/pop.log
-StandardError=append:/home/$USER/popcache/pop.log
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-# Enable and start the service
-sudo systemctl daemon-reexec
-sudo systemctl daemon-reload
-sudo systemctl enable popnode
-sudo systemctl start popnode
-
+# Start node in background and log output
 echo ""
-echo "✅ PoP Node setup complete. Logs below:"
-echo ""
-tail -f ~/popcache/pop.log
+echo "Starting PoP node..."
+nohup ./pop --config ./config.json > ~/popcache/pop.log 2>&1 &
+
+sleep 2
+echo "✅ PoP Node started in background."
+echo "Logs: tail -f ~/popcache/pop.log"
