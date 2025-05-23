@@ -33,12 +33,12 @@ cat > config.json <<EOF
     "host": "0.0.0.0",
     "port": 8443,
     "http_port": 8080,
-    "workers": 20
+    "workers": 40
   },
   "cache_config": {
-    "memory_cache_size_mb": 2048,
+    "memory_cache_size_mb": 8192,
     "disk_cache_path": "./cache",
-    "disk_cache_size_gb": 50,
+    "disk_cache_size_gb": 80,
     "default_ttl_seconds": 86400,
     "respect_origin_headers": true,
     "max_cacheable_size_mb": 1024
