@@ -51,8 +51,8 @@ EOL'
 sudo mkdir -p /opt/popcache
 cd /opt/popcache
 
-wget https://download.pipe.network/static/pop-v0.3.0-linux-x64.tar.gz
-sudo tar -xzf pop-v0.3.0-linux-*.tar.gz
+wget https://download.pipe.network/static/pop-v0.3.1-linux-x64.tar.gz
+sudo tar -xzf pop-v0.3.1-linux-x64.tar.gz
 chmod +x ./pop
 
 # Generate config.json with your inputs
