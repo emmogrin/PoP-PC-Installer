@@ -15,20 +15,20 @@ echo "╚══════╝╚═╝  ╚═╝╚═╝╚═╝  ╚══�
 echo -e "${BOLD}                          SAINT KHEN || @admirkhen${RESET}"
 echo ""
 
-# Prompt for config values
+# === Input Prompts ===
 read -rp "Enter PoP Name (e.g. khen1): " POP_NAME
 read -rp "Enter Location (e.g. china): " POP_LOCATION
 read -rp "Enter Invite Code: " INVITE_CODE
 read -rp "Enter Email: " EMAIL
 read -rp "Enter Discord Username (e.g. jijinwang): " DISCORD
 read -rp "Enter Telegram Username (with @): " TELEGRAM
-read -rp "Enter Solana Wallet Address (for rewards): " SOLANA_PUBKEY
+read -rp "Enter Solana Wallet Address: " SOLANA_PUBKEY
 
-# Update and install dependencies
+# === Install Dependencies ===
 apt update && apt install -y libssl-dev ca-certificates docker.io jq
 
-# Configure system limits and network settings
-sudo bash -c 'cat > /etc/sysctl.d/99-popcache.conf << EOL
+# === Optimize System Settings ===
+cat > /etc/sysctl.d/99-popcache.conf << EOL
 net.ipv4.ip_local_port_range = 1024 65535
 net.core.somaxconn = 65535
 net.ipv4.tcp_low_latency = 1
@@ -39,23 +39,22 @@ net.ipv4.tcp_wmem = 4096 65536 16777216
 net.ipv4.tcp_rmem = 4096 87380 16777216
 net.core.wmem_max = 16777216
 net.core.rmem_max = 16777216
-EOL'
-sudo sysctl -p /etc/sysctl.d/99-popcache.conf
+EOL
 
-sudo bash -c 'cat > /etc/security/limits.d/popcache.conf << EOL
+sysctl -p /etc/sysctl.d/99-popcache.conf
+
+cat > /etc/security/limits.d/popcache.conf << EOL
 *    hard nofile 65535
 *    soft nofile 65535
-EOL'
+EOL
 
-# Create working directory and download binary
-sudo mkdir -p /opt/popcache
-cd /opt/popcache
-
+# === Download PoP Binary ===
+mkdir -p /opt/popcache && cd /opt/popcache
 wget https://download.pipe.network/static/pop-v0.3.1-linux-x64.tar.gz
-sudo tar -xzf pop-v0.3.1-linux-x64.tar.gz
+tar -xzf pop-v0.3.1-linux-x64.tar.gz
 chmod +x ./pop
 
-# Generate config.json with your inputs
+# === Create config.json ===
 cat > config.json << EOL
 {
   "pop_name": "$POP_NAME",
@@ -90,7 +89,7 @@ cat > config.json << EOL
 }
 EOL
 
-# Create Dockerfile
+# === Create Dockerfile ===
 cat > Dockerfile << EOL
 FROM ubuntu:24.04
 
@@ -107,12 +106,11 @@ COPY config.json .
 
 RUN chmod +x ./pop
 
-CMD ["./pop", "--config", "config.json"]
+CMD ["./pop"]
 EOL
 
-# Build and run Docker container
+# === Build and Run Docker Container ===
 docker build -t popnode .
-
 docker rm -f popnode 2>/dev/null || true
 
 docker run -d \
@@ -120,9 +118,11 @@ docker run -d \
   -p 80:80 \
   -p 443:443 \
   --restart unless-stopped \
+  -e POP_INVITE_CODE="$INVITE_CODE" \
   popnode
 
 echo ""
-echo -e "${BOLD}${CYAN}✅ PoP Node Docker container started.${RESET}"
-echo "Use: docker logs -f popnode"
+echo -e "${BOLD}${CYAN}✅ PoP Node successfully installed and started.${RESET}"
+echo "📦 Container Name: popnode"
+echo "📜 View logs: ${BOLD}docker logs -f popnode${RESET}"
 echo ""
