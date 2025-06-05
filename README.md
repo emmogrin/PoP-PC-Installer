@@ -2,6 +2,12 @@ PoP Node Installer for PC (Docker-based)
 
 This setup script installs and runs the PoP Node using Docker on any Ubuntu-based PC.
 
+■■Due to frequent updates (this removes the previous version)
+■■if this is your first time, skip to quick start.
+```
+rm -rf install_pop_pc.sh
+```
+
 Quick Start
 ```
 curl -O https://raw.githubusercontent.com/emmogrin/PoP-PC-Installer/main/install_pop_pc.sh
