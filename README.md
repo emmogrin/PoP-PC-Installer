@@ -3,6 +3,7 @@ PoP Node Installer for PC (Docker-based)
 This setup script installs and runs the PoP Node using Docker on any Ubuntu-based PC.
 
 ■■Due to frequent updates (this removes the previous version)
+
 ■■if this is your first time, skip to quick start.
 ```
 rm -rf install_pop_pc.sh
@@ -41,10 +42,6 @@ Manual Commands
 
 If needed, you can manually control the PoP node with:
 
-# Start the PoP node container manually after reboot
-```
-sudo docker start popnode
-```
 # View logs
 ```
 sudo docker logs -f popnode
@@ -56,6 +53,11 @@ systemctl status docker
 # If Docker is not active:
 ```
 sudo systemctl start docker
+```
+
+# Start the PoP node container manually after reboot
+```
+sudo docker start popnode
 ```
 Health Checks
 
