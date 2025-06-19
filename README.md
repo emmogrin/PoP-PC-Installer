@@ -15,7 +15,7 @@ curl -O https://raw.githubusercontent.com/emmogrin/PoP-PC-Installer/main/update-
 chmod +x update-pop.sh && ./update-pop.sh
 ```
 
-Quick Start
+# Quick Start
 ```
 curl -O https://raw.githubusercontent.com/emmogrin/PoP-PC-Installer/main/install_pop_pc.sh
 chmod +x install_pop_pc.sh
