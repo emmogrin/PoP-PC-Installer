@@ -5,8 +5,14 @@ This setup script installs and runs the PoP Node using Docker on any Ubuntu-base
 ■■Due to frequent updates (this removes the previous version)
 
 ■■if this is your first time, skip to quick start.
+
 ```
-rm -rf install_pop_pc.sh
+cd /opt/popcache
+```
+
+```
+curl -O https://raw.githubusercontent.com/emmogrin/PoP-PC-Installer/main/update-pop.sh
+chmod +x update-pop.sh && ./update-pop.sh
 ```
 
 Quick Start
