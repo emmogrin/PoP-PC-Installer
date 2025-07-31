@@ -49,10 +49,10 @@ At least 1 SOL (Devnet) in your wallet
 
 if you have used the repo before (git pull)
 ```
+cd PoP-PC-Installer
 git stash --include-untracked
 git pull
 git stash pop
-cd PoP-PC-Installer
 chmod +x pipe-firestarter.sh
 ./pipe-firestarter.sh
 ```
