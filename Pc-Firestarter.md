@@ -46,6 +46,16 @@ At least 1 SOL (Devnet) in your wallet
 ---
 
 ## ⚙️ How To Use
+
+if you have used the repo before (git pull)
+```
+git stash --include-untracked
+git pull
+git stash pop
+chmod +x pipe-firestarter.sh
+./pipe-firestarter.sh
+```
+if you haven't ⬇️
 ```
 git clone https://github.com/emmogrin/PoP-PC-Installer
 cd PoP-PC-Installer
