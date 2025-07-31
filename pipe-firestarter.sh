@@ -21,7 +21,7 @@ pipe new-user "$USERNAME" || { echo "❌ Failed to create user"; exit 1; }
 # Extract Solana pubkey from config
 SOL_PUBKEY=$(grep -o '"solana_pubkey": *"[^"]*' ~/.pipe-cli.json | awk -F'"' '{print $4}')
 echo ""
-echo "🪪 Your Pipe Solana wallet address is:"
+echo "🪪 Your Pipe Solana wallet address is the pubKey above:"
 echo "   $SOL_PUBKEY"
 echo "💸 Visit https://faucet.solana.com/"
 echo "📥 Paste your address there to receive Devnet SOL"
