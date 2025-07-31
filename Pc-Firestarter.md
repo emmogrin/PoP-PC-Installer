@@ -65,7 +65,7 @@ go the [🔗 Solana Devnet Faucet](https://faucet.solana.com) and get devnet sol
 
 [![Screenshot-20250731-075007-Termux.jpg](https://i.postimg.cc/1tcbFYNn/Screenshot-20250731-075007-Termux.jpg)](https://postimg.cc/TL1kM00f)
 
-After swapping SOL → PIPE, test your first uploads immediately.
+[Post your screenshot in Discord for fire-starter role.](https://discord.com/channels/1276592413049356391/1399519012756656189) look at the example below.
 
 
 
