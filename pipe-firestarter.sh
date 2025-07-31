@@ -8,7 +8,7 @@ echo "==============================="
 # STEP 1: Clone and build pipe-cli
 echo "[1/4] Cloning and installing pipe-cli..."
 git clone https://github.com/PipeNetwork/pipe.git
-cd pipe/pipe-cli || exit
+cd pipe || exit
 cargo install --path . || { echo "❌ Failed to install pipe-cli"; exit 1; }
 cd ../.. || exit
 
